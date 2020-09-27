@@ -1,0 +1,18 @@
+<form [formGroup]="recordForm">
+
+  <input #amountText type="number" (change)="amountChanged(amountText.value)"
+         class="form-control" formControlName="amount" name="amount"
+         style="text-align: right"
+         class="form-control"
+         placeholder="Enter Amount">
+  <div *ngIf="amount.invalid"
+       class="validation-error">
+    <div *ngIf="amount.errors.required">
+      Amount is required.
+    </div>
+    <div *ngIf="amount.errors.pattern">
+      Amount is invalid.
+    </div>
+  </div>
+
+</form>

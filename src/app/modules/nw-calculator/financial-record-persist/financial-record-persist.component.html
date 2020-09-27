@@ -1,0 +1,58 @@
+<div class="form-container">
+
+  <div>
+    <h3>Add New Record </h3>
+  </div>
+  <div>
+    <form [formGroup]="recordForm" (submit)="onSubmit()">
+
+      <div class="row">
+        <div class="col">
+          <label> Category
+            <select class="form-control" formControlName="category">
+              <option *ngFor="let category of categories" value={{category.id}} data-label={{category.subType}}>{{category.subType}}
+              </option>
+            </select>
+          </label>
+          <div *ngIf="category.invalid"
+               class="validation-error">
+            <div *ngIf="category.errors.required">
+              Type is required.
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <label> Title
+            <input type="text" class="form-control" formControlName="title" name="title" value=""/>
+          </label>
+          <div *ngIf="title.invalid"
+               class="validation-error">
+            <div *ngIf="title.errors.required">
+              Title is required.
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <label>  Amount
+            <input type="number" class="form-control" formControlName="amount" name="amount" value=""/>
+          </label>
+          <div *ngIf="amount.invalid"
+               class="validation-error">
+            <div *ngIf="amount.errors.required">
+              Amount is required.
+            </div>
+            <div *ngIf="amount.errors.pattern">
+              Amount is invalid.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="justify-content-end" align="right">
+          <button class="mr-1" type="button" mat-stroked-button (click)="cancel()">Cancel</button>
+          <button type="submit" mat-flat-button color="primary">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

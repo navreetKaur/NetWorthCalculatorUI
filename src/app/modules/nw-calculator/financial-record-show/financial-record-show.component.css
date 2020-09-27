@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+}
+
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+.sub-type-header {
+  border-bottom: 2px solid darkgrey;
+  margin-bottom: 5px;
+  font-size: large;
+}

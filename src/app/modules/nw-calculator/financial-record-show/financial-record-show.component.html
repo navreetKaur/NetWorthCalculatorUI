@@ -1,0 +1,27 @@
+<div>
+
+  <div *ngFor="let subType of subTypes">
+
+    <div class="sub-type-header">
+      <span> {{subType}} </span>
+    </div>
+
+    <ng-container *ngFor="let record of records">
+        <div *ngIf="record.category.subType == subType">
+
+          <div class="row">
+            <div class="col">
+              <span> {{record.title}} </span>
+            </div>
+            <div class="col">
+              <app-edit-fr-amount (dataPersisted)="emitSuccess()" [record]="record"></app-edit-fr-amount>
+            </div>
+            <div>
+              <span class="material-icons" style="color: red" (click)="deleteRecord(record.id)">delete</span>
+            </div>
+          </div>
+        </div>
+    </ng-container>
+  </div>
+
+</div>

@@ -1,0 +1,107 @@
+<div class="container">
+
+  <div>
+    <!-- Show calculated net worth -->
+    <app-networth-show [netWorth]="netWorth"></app-networth-show>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="card">
+        <div class="card-title mdSnacks-success">
+          <h3>Assets</h3>
+        </div>
+        <div class="card-body">
+          <app-financial-record-show
+            (successEmitter)="loadFinancialRecords()"
+            [type]="'ASSET'"
+            [records]="assetRecords">
+          </app-financial-record-show>
+
+
+        </div>
+        <div class="row total-sum-container green">
+          <div class="col record-sum-label">
+            Total Assets
+          </div>
+          <div class="col record-sum" style="text-align: right">
+            {{totalAssets |  currency:'USD'}}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-2">
+        <div>
+          <button (click)="showAddAsset = true"
+                  mat-mini-fab color="primary"
+                  aria-label="Add Asset">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="showAddAsset">
+          <app-financial-record-persist
+            (cancelEmitter)="showAddAsset=false"
+            (dataPersisted)="showAddAsset=false; loadFinancialRecords()"
+            [type]="'ASSET'">
+          </app-financial-record-persist>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="col-md-6">
+
+      <div class="card">
+        <div class="card-title mdSnacks-error">
+          <h3>Liabilities</h3>
+        </div>
+        <div class="card-body">
+
+
+          <app-financial-record-show
+            (successEmitter)="loadFinancialRecords()"
+            [type]="'LIABILITY'"
+            [records]="liabilityRecords">
+          </app-financial-record-show>
+
+        </div>
+
+        <div class="row total-sum-container red">
+          <div class="col record-sum-label" >
+            Total Liability
+          </div>
+          <div class="col record-sum" style="text-align: right">
+            {{totalLiability |  currency:'USD'}}
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div class="mt-2">
+
+        <div>
+
+          <button (click)="showAddLiability= true"
+                  mat-mini-fab color="primary"
+                  aria-label="Add liability">
+            <mat-icon>add</mat-icon>
+          </button>
+
+        </div>
+        <div *ngIf="showAddLiability">
+          <app-financial-record-persist
+            (cancelEmitter)="showAddLiability=false"
+            (dataPersisted)="showAddLiability=false; loadFinancialRecords()"
+            [type]="'LIABILITY'">
+          </app-financial-record-persist>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

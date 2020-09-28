@@ -13,6 +13,9 @@
     <div *ngIf="amount.errors.pattern">
       Amount is invalid.
     </div>
+    <div *ngIf="amount.errors.maxValue">
+      Amount should be less than {{amount.errors.maxValue.MaximumValue}}.
+    </div>
   </div>
 
 </form>

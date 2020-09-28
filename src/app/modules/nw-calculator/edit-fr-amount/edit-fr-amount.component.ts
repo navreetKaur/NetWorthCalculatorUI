@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NwCalculatorService} from "../nw-calculator.service";
 import {FinancialRecord} from "../financial-record";
 import {ApplicationMessageSnackBarService} from "../../../snackService";
+import { NWCalcValidators } from '../../../common/validators/nw-calc-validators';
 
 @Component({
   selector: 'app-edit-fr-amount',
@@ -18,7 +19,11 @@ export class EditFrAmountComponent implements OnInit {
   dataPersisted = new EventEmitter<boolean>();
 
   recordForm = new FormGroup({
-    amount: new FormControl('', [Validators.required, Validators.pattern(/^[.\d]+$/)])
+    amount: new FormControl('', [
+      Validators.required, 
+      Validators.pattern(/^[.\d]+$/),
+      NWCalcValidators.maxValue
+    ])
   });
 
   get amount() { return this.recordForm.get('amount'); }

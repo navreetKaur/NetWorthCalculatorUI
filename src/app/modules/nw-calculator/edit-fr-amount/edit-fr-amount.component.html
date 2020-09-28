@@ -2,7 +2,7 @@
 
   <input #amountText type="number" (change)="amountChanged(amountText.value)"
          class="form-control" formControlName="amount" name="amount"
-         style="text-align: right"
+         style="text-align: left;"
          class="form-control"
          placeholder="Enter Amount">
   <div *ngIf="amount.invalid"

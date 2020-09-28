@@ -38,6 +38,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {HttpClientModule} from "@angular/common/http";
 import { FinancialRecordPersistComponent } from './financial-record-persist/financial-record-persist.component';
 import { EditFrAmountComponent } from './edit-fr-amount/edit-fr-amount.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -76,8 +77,7 @@ import { EditFrAmountComponent } from './edit-fr-amount/edit-fr-amount.component
   ],
   imports: [
     CommonModule
-  ],
-  declarations: []
+  ]
 })
 export class ApplicationMaterialModule {}
 
@@ -85,6 +85,7 @@ export class ApplicationMaterialModule {}
   declarations: [
     NetworthDashboardComponent,
     NetworthShowComponent,
+    NavBarComponent,
     FinancialRecordShowComponent,
     FinancialRecordPersistComponent,
     EditFrAmountComponent

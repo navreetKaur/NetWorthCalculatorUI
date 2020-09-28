@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FinancialRecord} from "../financial-record";
 import {NwCalculatorService} from "../nw-calculator.service";
 import {UtilService} from "../../../util.service";
+import { Customer } from '../customer';
 
 @Component({
   selector: 'app-networth-dashboard',
@@ -10,13 +11,11 @@ import {UtilService} from "../../../util.service";
 })
 export class NetworthDashboardComponent implements OnInit {
 
-
-  netWorth: number = 0;
   showAddAsset: boolean;
   showAddLiability: boolean;
 
   // Holds list of all financial records
-  financialRecords: FinancialRecord[] = [];
+  customer: Customer= new Customer();
 
   constructor(private service: NwCalculatorService, private utilService: UtilService) { }
 
@@ -31,15 +30,12 @@ export class NetworthDashboardComponent implements OnInit {
   loadFinancialRecords() {
 
     // Call service to fetch financial records.
-    //this.financialRecords = this.service.getFinancialRecords()
 
     this.service
       .listFinancialRecords()
-      .subscribe((records: FinancialRecord[]) => {
-        this.financialRecords = records;
-
+      .subscribe((records: Customer) => {
+        this.customer = records;
       }, error => {
-          // TODO show error on UI.
         console.log('error')
 
       });
@@ -47,15 +43,11 @@ export class NetworthDashboardComponent implements OnInit {
   }
 
   get totalAssets() {
-    let sum: number = 0;
-    this.assetRecords.forEach(a => sum += a.amount);
-    return sum
+    return this.customer.totalAssets;
   }
 
   get totalLiability() {
-    let sum: number = 0;
-    this.liabilityRecords.forEach(a => sum += a.amount);
-    return sum
+    return this.customer.totalLiabilities;
   }
 
 
@@ -71,10 +63,10 @@ export class NetworthDashboardComponent implements OnInit {
 
     let records: FinancialRecord[] = [];
 
-    if(this.financialRecords) {
+    if(this.customer.financialRecords) {
 
       // Filter only ASSETS
-      records = this.financialRecords.filter(r => r.category.type === type);
+      records = this.customer.financialRecords.filter(r => r.category.type === type);
 
       // Sort records by subType
       this.utilService.sort(records, 'category.subType', false);

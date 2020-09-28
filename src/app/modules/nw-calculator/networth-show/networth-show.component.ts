@@ -5,14 +5,9 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './networth-show.component.html',
   styleUrls: ['./networth-show.component.css']
 })
-export class NetworthShowComponent implements OnInit {
+export class NetworthShowComponent  {
 
   @Input()
   netWorth: number;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

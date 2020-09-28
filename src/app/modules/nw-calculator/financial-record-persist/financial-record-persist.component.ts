@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Category, FinancialRecord} from "../financial-record";
+import {FinancialRecord} from "../financial-record";
+import {Category} from "../category";
 import {NwCalculatorService} from "../nw-calculator.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApplicationMessageSnackBarService} from "../../../snackService";

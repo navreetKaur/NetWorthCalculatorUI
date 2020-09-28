@@ -1,8 +1,8 @@
+<app-nav-bar [userName] = "customer.name"></app-nav-bar>
 <div class="container">
-
   <div>
     <!-- Show calculated net worth -->
-    <app-networth-show [netWorth]="netWorth"></app-networth-show>
+    <app-networth-show [netWorth]="customer.netWorth"></app-networth-show>
   </div>
 
   <div class="row">
@@ -10,8 +10,8 @@
     <div class="col-md-6">
 
       <div class="card">
-        <div class="card-title mdSnacks-success">
-          <h3>Assets</h3>
+        <div class="card-title mdSnacks-heading">
+          <h2>Assets</h2>
         </div>
         <div class="card-body">
           <app-financial-record-show
@@ -26,8 +26,8 @@
           <div class="col record-sum-label">
             Total Assets
           </div>
-          <div class="col record-sum" style="text-align: right">
-            {{totalAssets |  currency:'USD'}}
+          <div class="col record-sum left" >
+            {{customer.totalAssets |  currency:'USD'}}
           </div>
         </div>
 
@@ -56,8 +56,8 @@
     <div class="col-md-6">
 
       <div class="card">
-        <div class="card-title mdSnacks-error">
-          <h3>Liabilities</h3>
+        <div class="card-title mdSnacks-heading">
+          <h2>Liabilities</h2>
         </div>
         <div class="card-body">
 
@@ -74,8 +74,8 @@
           <div class="col record-sum-label" >
             Total Liability
           </div>
-          <div class="col record-sum" style="text-align: right">
-            {{totalLiability |  currency:'USD'}}
+          <div class="col record-sum left" >
+            {{customer.totalLiabilities |  currency:'USD'}}
           </div>
         </div>
 

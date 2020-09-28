@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.validation-error {
+  color: red;
+}
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.valign-center {
+  vertical-align: middle;
+}
+
+.mdSnacks-heading{
+  background-color: #f7f7f7;
+  
+}
+
+.mdSnacks-success{
+  background-color: #5BC236;
+}
+
+.mdSnacks-error{
+  background-color: #c2000b;
+}
+.mdSnacks-warning{
+  background-color: #e3d006;
+}
+
+.mdSnacks-info{
+  background-color: #29a9ee;
+}
+
+.material-icons:hover{
+  cursor: pointer;
+}

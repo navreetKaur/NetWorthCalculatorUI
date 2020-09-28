@@ -1,9 +1,11 @@
-import {Category, FinancialRecord} from "./financial-record";
+import {FinancialRecord} from "./financial-record";
+import {Category} from "./category";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {environment} from "../../../environments/environment";
 import {Observable, Subject, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
+import { Customer } from './customer';
 
 @Injectable()
 export class NwCalculatorService {
@@ -22,39 +24,12 @@ export class NwCalculatorService {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
-    } else if (error instanceof HttpErrorResponse && error.status === 401) {
-      let e = new HttpErrorResponse({error: error, status:error.status, statusText: 'New Session expired, please login again.'});
-      return throwError(e);
-    } else {
+    }  else {
       // The backend returned an unsuccessful response code.
       console.error(`${error.status}: ${error.message}`);
     }
     // Return an observable with a user-facing error message
     return throwError('We\'re sorry an unexpected error occurred.');
-  }
-
-  /**
-   *  Method to fetch records from backend
-   */
-  getFinancialRecords() {
-
-    let records = [];
-
-    let asset_CashandInvestments = new Category({id: 1, type: 'ASSET', subType: 'Cash and Investments'});
-    let asset_LongTermAssets = new Category({id: 2, type: 'ASSET', subType: 'Long Term Assets'});
-
-    records.push(new FinancialRecord({id: 1, category: asset_CashandInvestments, title: 'Chequing',  amount: 10000.00 }));
-    records.push(new FinancialRecord({id: 2, category: asset_CashandInvestments, title: 'Savings for Taxes',  amount: 5000.00 }));
-    records.push(new FinancialRecord({id: 3, category: asset_LongTermAssets, title: 'Primary Home',  amount: 4550000.00 }));
-    records.push(new FinancialRecord({id: 4, category: asset_CashandInvestments, title: 'Investment 2',  amount: 60000.00 }));
-    records.push(new FinancialRecord({id: 5, category: asset_CashandInvestments, title: 'Investment 1',  amount: 30000.00 }));
-
-    let liability_stl =  new Category({id: 3, type: 'LIABILITY', subType: 'Short Term Liabilties'});
-
-    records.push(new FinancialRecord({id: 5, category: liability_stl, title: 'Credit Card 1',  amount: 30000.00 }));
-
-    return records;
-
   }
 
 
@@ -66,7 +41,7 @@ export class NwCalculatorService {
 
     const subject = new Subject<Category[]>();
     return this.http
-      .get<Category[]>(this.apiEndpoint + '/category');
+      .get<Category[]>(this.apiEndpoint + '/categories');
   }
 
   /**
@@ -77,7 +52,7 @@ export class NwCalculatorService {
       if (category.id) {
 
         return  this.http
-          .put<Category>( `${this.apiEndpoint}/category/${category.id}`, category)
+          .put<Category>( `${this.apiEndpoint}/category`, category)
           .pipe(catchError(this.handleError));
 
         } else {
@@ -103,11 +78,11 @@ export class NwCalculatorService {
   /**
    * Method to fetch list of Financial Records
    */
-  listFinancialRecords(): Observable<FinancialRecord[]> {
+  listFinancialRecords(): Observable<Customer> {
 
-    const subject = new Subject<FinancialRecord[]>();
+    const subject = new Subject<Customer>();
     return this.http
-      .get<FinancialRecord[]>(this.apiEndpoint + '/financialRecord');
+      .get<Customer>(this.apiEndpoint + '/customer/1/financialRecords');
   }
 
   /**
@@ -118,13 +93,23 @@ export class NwCalculatorService {
     if (financialRecord.id) {
 
       return  this.http
-        .put<FinancialRecord>( `${this.apiEndpoint}/financialRecord/${financialRecord.id}`, financialRecord)
+        .put<FinancialRecord>( `${this.apiEndpoint}/customer/1/financialRecord`, 
+        {
+          "id" :financialRecord.id,
+          "amount":financialRecord.amount
+        }
+        )
         .pipe(catchError(this.handleError));
 
     } else {
 
       return  this.http
-        .post<FinancialRecord>(`${this.apiEndpoint}/financialRecord`, financialRecord)
+        .post<FinancialRecord>(`${this.apiEndpoint}/customer/1/financialRecord`, 
+        {  
+          "amount":financialRecord.amount,
+          "title":financialRecord.title,
+          "categoryId":financialRecord.category.id
+        })
         .pipe(catchError(this.handleError));
     }
 
@@ -137,7 +122,7 @@ export class NwCalculatorService {
    */
   deleteFinancialRecord(id: number): Observable<void> {
     return this.http
-      .delete<void>(`${this.apiEndpoint}/financialRecord/${id}`)
+      .delete<void>(`${this.apiEndpoint}/customer/1/financialRecord/${id}`)
       .pipe(catchError(this.handleError));
   }
 

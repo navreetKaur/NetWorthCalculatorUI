@@ -4,6 +4,7 @@ import {Category} from "../category";
 import {NwCalculatorService} from "../nw-calculator.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApplicationMessageSnackBarService} from "../../../snackService";
+import { NWCalcValidators } from 'src/app/common/validators/nw-calc-validators';
 
 @Component({
   selector: 'app-financial-record-persist',
@@ -24,7 +25,10 @@ export class FinancialRecordPersistComponent implements OnInit {
 
   recordForm = new FormGroup({
     title: new FormControl('', Validators.required),
-    amount: new FormControl('', [Validators.required, Validators.pattern(/^[.\d]+$/)]),
+    amount: new FormControl('', [Validators.required, 
+      Validators.pattern(/^[.\d]+$/),
+      NWCalcValidators.maxValue
+    ]),
     category: new FormControl('', Validators.required)
   });
 
@@ -55,7 +59,7 @@ export class FinancialRecordPersistComponent implements OnInit {
         this.categories = categories.filter(c => c.type === this.type);
 
       }, error => {
-        // TODO show error on UI.
+        this.snackMessageService.showErrorMessageSnackBar('Error while getting categories');
         console.log('error')
 
       });

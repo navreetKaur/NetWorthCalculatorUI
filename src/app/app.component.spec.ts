@@ -22,10 +22,5 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('net-worth-calculator');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('net-worth-calculator app is running!');
-  });
+
 });

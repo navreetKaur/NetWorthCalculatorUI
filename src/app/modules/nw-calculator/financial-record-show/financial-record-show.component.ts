@@ -8,7 +8,7 @@ import {ApplicationMessageSnackBarService} from "../../../snackService";
   templateUrl: './financial-record-show.component.html',
   styleUrls: ['./financial-record-show.component.css']
 })
-export class FinancialRecordShowComponent implements OnInit {
+export class FinancialRecordShowComponent {
 
   @Input()
   type: string;
@@ -22,8 +22,6 @@ export class FinancialRecordShowComponent implements OnInit {
   constructor(private service: NwCalculatorService,
     private snackMessageService: ApplicationMessageSnackBarService) { }
 
-  ngOnInit(): void {
-  }
 
   get subTypes() {
 
@@ -51,15 +49,10 @@ export class FinancialRecordShowComponent implements OnInit {
           console.log(data);
           this.emitSuccess();
 
-          // Call to reload the data.
         },error => {
           console.log(error);
           this.snackMessageService.showErrorMessageSnackBar('Error while deleting record');
         });
-  }
-
-  sav() {
-
   }
 
   /**
@@ -70,9 +63,4 @@ export class FinancialRecordShowComponent implements OnInit {
    return Array.from(new Set(dupeArray));
   }
 
-  valueChanged(id) {
-
-    console.log('id'+ id);
-
-  }
 }

@@ -13,8 +13,8 @@ export class UtilService {
 
     list.sort((a: any, b: any) => {
 
-      let v1 = a[key] == null ? '' : (a[key] instanceof Date ?  a[key].toISOString() : a[key]);
-      let v2 = b[key] == null ? '' : (b[key] instanceof Date ?  b[key].toISOString() : b[key]);
+      let v1 = a[key] == null ? '' : a[key];
+      let v2 = b[key] == null ? '' : b[key];
 
       if (isNaN(v1)) {
         v1 = v1.toLowerCase();
